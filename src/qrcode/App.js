@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import type {Node} from 'react';
 import {name as appName} from './app.json';
 import {
@@ -19,6 +19,8 @@ import {
   useColorScheme,
   NativeModules,
   View,
+  Image,
+  TextInput,
 } from 'react-native';
 
 import {
@@ -28,6 +30,11 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import RNQRGenerator from 'rn-qr-generator';
+
+import RNFS from 'react-native-fs';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -57,6 +64,9 @@ const Section = ({children, title}): Node => {
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  let [img, setImg] = useState(null);
+
+  const rr = useRef(null);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -78,14 +88,50 @@ const App: () => Node = () => {
           onPress={() => {
             NativeModules.Common &&
               NativeModules.Common.toast('显示toast内容', 0);
+            // rr.current.focus();
+            launchImageLibrary({includeBase64: true}, r => {
+              // console.log('launchImageLibrary r', r);
+              let path = '';
+              let image = '';
+              if (r.assets && r.assets[0].uri) {
+                path = r.assets[0].uri;
+                image = r.assets[0];
+                RNQRGenerator.detect({
+                  uri: path,
+                  base64: image.base64,
+                })
+                  .then(res => {
+                    console.log('RNQRGenerator detect result', res);
+                    // 设置图片
+                    RNQRGenerator.generate({
+                      value: res.values[0],
+                      height: 180,
+                      width: 180,
+                    })
+                      .then(response => {
+                        const {uri, width, height, base64} = response;
+                        console.log('create QR code', response),
+                          setImg({uri: uri});
+                      })
+                      .catch(error =>
+                        console.log('create QR code error', error),
+                      );
+                  })
+                  .catch(err => {
+                    console.log('RNQRGenerator detect error', err);
+                  });
+                return;
+              } else {
+                return;
+              }
+            });
           }}
         />
-        <Button
-          title="初始化数据库"
-          onPress={() => {
-            require('./src/db/index');
-          }}
+        <Image
+          source={img}
+          style={{width: 200, height: 200, backgroundColor: '#f60'}}
         />
+        <TextInput ref={rr} keyboardType={'number-pad'} />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
