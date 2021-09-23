@@ -22,7 +22,17 @@ import {
   TextInput,
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
+import Vconsole from '@kafudev/react-native-vconsole';
+import {
+  useFlipper,
+  useReduxDevToolsExtension,
+} from '@react-navigation/devtools';
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {navigationRef} from './navigate';
 
 import Router from '../router';
 
@@ -31,12 +41,18 @@ const App = () => {
     NativeModules.RNBootSplash.hide(true); // 隐藏启动屏
   }, 1500);
 
+  useFlipper(navigationRef);
+  useReduxDevToolsExtension(navigationRef);
+
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={'light-content'} />
-      <NavigationContainer independent={true}>
-        <Router />
-      </NavigationContainer>
+      <BottomSheetModalProvider>
+        <StatusBar barStyle={'dark-content'} backgroundColor="#fff" />
+        <NavigationContainer independent={true} ref={navigationRef}>
+          <Router />
+          {global.__DEV__ ? <Vconsole /> : null}
+        </NavigationContainer>
+      </BottomSheetModalProvider>
     </SafeAreaProvider>
   );
 };

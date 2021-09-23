@@ -19,12 +19,24 @@ import {
 import {Header} from 'react-native/Libraries/NewAppScreen';
 
 const App = ({navigation}) => {
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => alert('This is a button!')}
+          title="Info"
+          color="#f60"
+        />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <Header />
       <Button
         onPress={() => {
-          navigation.popToTop();
+          navigation.navigate('Index');
         }}
         title="返回HOME"
       />

@@ -10,10 +10,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4",
+    "@kafudev/react-native-vconsole": "^0.1.4",
     "@nozbe/watermelondb": "^0.23.0",
     "@nozbe/with-observables": "^1.4.0",
     "@react-navigation/bottom-tabs": "^6.0.5",
+    "@react-navigation/devtools": "^6.0.1",
     "@react-navigation/drawer": "^6.1.4",
+    "@react-navigation/elements": "^1.1.0",
+    "@react-navigation/material-bottom-tabs": "^6.0.5",
     "@react-navigation/material-top-tabs": "^6.0.2",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
@@ -28,11 +33,13 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-image-picker": "^4.0.6",
     "react-native-pager-view": "^5.4.4",
+    "react-native-paper": "^4.9.2",
     "react-native-reanimated": "^2.2.2",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "^3.7.2",
     "react-native-tab-view": "^3.1.1",
+    "react-native-vector-icons": "^8.1.0",
     "rn-qr-generator": "^1.1.7"
   },
   "devDependencies": {
@@ -44,6 +51,7 @@
     "eslint": "^7.31.0",
     "jest": "^27.0.6",
     "metro-react-native-babel-preset": "^0.66.1",
+    "react-native-flipper": "^0.111.0",
     "react-test-renderer": "17.0.1"
   },
   "jest": {
