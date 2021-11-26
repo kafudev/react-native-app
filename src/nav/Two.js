@@ -8,10 +8,12 @@
 
 import React, {useRef, useState} from 'react';
 import {
+  View,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
+  NativeModules,
   Text,
   Button,
 } from 'react-native';
@@ -22,7 +24,7 @@ const App = ({navigation, route}) => {
   React.useLayoutEffect(() => {
     console.log('TwoPage navigation', navigation);
     navigation.setOptions({
-      title: 'My home',
+      title: 'My info',
       headerRight: () => (
         <Button
           onPress={() => navigation.push('Index2')}
@@ -50,6 +52,36 @@ const App = ({navigation, route}) => {
           navigation.push('Third');
         }}
         title="跳转到Third"
+      />
+      <View style={{marginTop: 5}} />
+      <Button
+        onPress={() => {
+          NativeModules.Common.toast('android toast', 1000);
+        }}
+        title={'显示toast'}
+      />
+      <View style={{marginTop: 5}} />
+      <Button
+        onPress={() => {
+          NativeModules.Common.showDevDialog();
+        }}
+        title={'打开开发目录'}
+      />
+      <View style={{marginTop: 5}} />
+      <Button
+        onPress={() => {
+          NativeModules.Common.reloadJS();
+        }}
+        title={'重新加载JS'}
+      />
+      <View style={{marginTop: 5}} />
+      <Button
+        onPress={() => {
+          navigation.navigate('Web', {
+            url: 'https://www.baidu.com/',
+          });
+        }}
+        title={'打开webview'}
       />
     </ScrollView>
   );

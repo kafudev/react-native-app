@@ -24,6 +24,7 @@ const Drawer = createDrawerNavigator();
 import HomeScreen from './nav/Home';
 import TwoScreen from './nav/Two';
 import ThirdScreen from './nav/Third';
+import WebScreen from './nav/Web';
 
 const RootStack = () => {
   return (
@@ -35,11 +36,13 @@ const RootStack = () => {
         headerStyle: {height: 72, backgroundColor: '#f4511e'},
         headerTitleStyle: {textAlign: 'center'},
         gestureEnabled: true,
+        animationEnabled: true,
+        detachPreviousScreen: false,
         // headerBackground: () => (
         //   <HeaderBackground style={{backgroundColor: 'tomato'}} />
         // ),
-        // cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        ...TransitionPresets.SlideFromRightIOS,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        // ...TransitionPresets.SlideFromRightIOS,
       }}
       // screenOptions={({route, navigation}) => ({
       //   headerShown: true,
@@ -71,6 +74,7 @@ const RootStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Two" component={TwoScreen} />
       <Stack.Screen name="Third" component={ThirdScreen} />
+      <Stack.Screen name="Web" component={WebScreen} />
     </Stack.Navigator>
   );
 };
@@ -90,12 +94,13 @@ const RootTab = () => {
         indicatorStyle: {height: 0},
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
-        ...TransitionPresets.SlideFromRightIOS,
+        // ...TransitionPresets.SlideFromRightIOS,
       }}>
       <Tab.Screen
         name="Home1"
         component={HomeScreen}
         options={{
+          title: 'Home',
           tabBarIcon: ({focused, color, size}) => (
             <Ionicons name={'ios-home'} size={24} color={color} />
           ),
@@ -106,6 +111,7 @@ const RootTab = () => {
         name="Two1"
         component={TwoScreen}
         options={{
+          title: 'Info',
           tabBarIcon: ({focused, color, size}) => (
             <Ionicons name={'ios-information-circle'} size={24} color={color} />
           ),
@@ -132,7 +138,7 @@ const RootDrawer = () => {
       screenOptions={{
         headerShown: true,
         headerStyle: {height: 72},
-        ...TransitionPresets.SlideFromRightIOS,
+        // ...TransitionPresets.SlideFromRightIOS,
       }}>
       <Drawer.Screen name="Home2" component={HomeScreen} />
       <Drawer.Screen name="Two2" component={TwoScreen} />
