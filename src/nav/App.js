@@ -8,7 +8,7 @@
 
 import React, {useRef, useState} from 'react';
 import type {Node} from 'react';
-import {name as appName} from './app.json';
+import {name as appName} from '../../app.json';
 import {
   ScrollView,
   StatusBar,
