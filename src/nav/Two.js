@@ -63,14 +63,14 @@ const App = ({navigation, route}) => {
       <View style={{marginTop: 5}} />
       <Button
         onPress={() => {
-          NativeModules.Common.showDevDialog();
+          NativeModules.Common.showDevMenu();
         }}
         title={'打开开发目录'}
       />
       <View style={{marginTop: 5}} />
       <Button
         onPress={() => {
-          NativeModules.Common.reloadJS();
+          NativeModules.Common.reloadJs();
         }}
         title={'重新加载JS'}
       />
