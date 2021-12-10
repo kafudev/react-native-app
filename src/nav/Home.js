@@ -14,6 +14,8 @@ import {
   StyleSheet,
   Text,
   Button,
+  DeviceEventEmitter,
+  NativeModules,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import BottomSheet, {
@@ -91,6 +93,16 @@ const App = ({navigation}) => {
         }}
         title={'关闭sheetModal'}
       />
+      <View style={{marginTop: 2}} />
+      <Button
+          title="触发Event"
+          onPress={() => {
+            console.log('emit from packPage')
+            NativeModules,Pack.emit('main', {
+              from: 'pack page'
+            });
+          }}
+        />
       {isOpen ? (
         <BottomSheet
           ref={bottomSheetRef}
