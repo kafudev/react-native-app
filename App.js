@@ -66,9 +66,6 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  setTimeout(() => {
-    NativeModules.RNBootSplash.hide(true); // 隐藏启动屏
-  }, 1500);
 
   return (
     <SafeAreaView style={backgroundStyle}>
