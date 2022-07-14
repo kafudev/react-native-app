@@ -5,8 +5,9 @@ import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import {AppRegistry, NativeModules} from 'react-native';
 // import App from './App';
-import App from './src/nav/App';
+// import App from './src/nav/App';
 // import App from './src/ble/ble';
+import App from './src/expo/AppLoad';
 import {name as appName} from './app.json';
 
 setTimeout(() => {
