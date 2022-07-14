@@ -95,14 +95,24 @@ const App = ({navigation}) => {
       />
       <View style={{marginTop: 2}} />
       <Button
-          title="触发Event"
-          onPress={() => {
-            console.log('emit from packPage')
-            NativeModules,Pack.emit('main', {
-              from: 'pack page'
+        title="触发Event"
+        onPress={() => {
+          console.log('emit from packPage');
+          NativeModules,
+            Pack.emit('main', {
+              from: 'pack page',
             });
-          }}
-        />
+        }}
+      />
+      <View style={{marginTop: 2}} />
+      <Button
+        title="跳转FlashList"
+        onPress={() => {
+          RootNavigation.navigate('FlashList', {
+            title: 'FlashList列表',
+          });
+        }}
+      />
       {isOpen ? (
         <BottomSheet
           ref={bottomSheetRef}

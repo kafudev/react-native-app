@@ -24,6 +24,7 @@ const Drawer = createDrawerNavigator();
 import HomeScreen from './nav/Home';
 import TwoScreen from './nav/Two';
 import ThirdScreen from './nav/Third';
+import FlashListScreen from './nav/FlashList';
 import WebScreen from './nav/Web';
 
 const RootStack = () => {
@@ -74,6 +75,7 @@ const RootStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Two" component={TwoScreen} />
       <Stack.Screen name="Third" component={ThirdScreen} />
+      <Stack.Screen name="FlashList" component={FlashListScreen} />
       <Stack.Screen name="Web" component={WebScreen} />
     </Stack.Navigator>
   );
