@@ -27,8 +27,8 @@ const App = ({navigation}) => {
   useEffect(() => {
     AMapSdk.init(
       Platform.select({
-        android: 'c52c7169e6df23490e3114330098aaac',
-        ios: '186d3464209b74effa4d8391f441f14d',
+        android: '29882043e0d079ba281d6444c8c57551',
+        ios: 'ed9779f4378a3e32bf282934ea92c20e',
       }),
     );
     AMapSdk.getVersion().then(version => {
@@ -45,12 +45,13 @@ const App = ({navigation}) => {
         width: width,
         height: height / 2,
         backgroundColor: 'rgba(0,0,0,0.5)',
+        marginTop: 44,
       }}>
       <MapView
         ref={refMap}
         mapType={MapType.Standard}
         compassEnabled={false}
-        zoomControlsEnabled={false}
+        zoomControlsEnabled={true}
         myLocationButtonEnabled={true}
         rotateGesturesEnabled={false}
         tiltGesturesEnabled={false}
