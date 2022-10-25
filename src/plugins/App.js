@@ -18,9 +18,11 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import Modal, {ModalProvider} from './Modal';
-import ChooseLocation from './chooseLocation';
-import ChoosePoi from './choosePoi';
+import {Modal, Sheet, OverlayProvider} from 'taro-rn-plus';
+// import OverlayProvider from './Overlay';
+// import Modal from './Modal';
+// import Sheet from './Sheet';
+
 StatusBar.setBackgroundColor('rgba(0,0,0,0.3)');
 // StatusBar.setTranslucent(true);
 // StatusBar.setHidden(false);
@@ -28,13 +30,13 @@ StatusBar.setBackgroundColor('rgba(0,0,0,0.3)');
 const App = () => {
   return (
     <SafeAreaView>
-      <ModalProvider>
+      <OverlayProvider>
         <View style={{marginTop: 200}}>
           <Button
             title="chooseLocation"
             onPress={() => {
               console.log('chooseLocation');
-              Modal.open(<ChooseLocation />, {
+              Modal.open(<View style={{width:200,height:200,backgroundColor:'#f60'}}/>, {
                 enableTouchThrough: false,
                 containerStyle: {
                   justifyContent: 'flex-start',
@@ -47,14 +49,25 @@ const App = () => {
               title="choosePoi"
               onPress={() => {
                 console.log('choosePoi');
-                Modal.open(<ChoosePoi />, {
+                Modal.open(<View  style={{width:200,height:200,backgroundColor:'blue'}}/>, {
+                  enableTouchThrough: true,
+                });
+              }}
+            />
+          </View>
+          <View style={{marginTop: 20}}>
+            <Button
+              title="sheet"
+              onPress={() => {
+                console.log('sheet');
+                Sheet.open(<View />, {
                   enableTouchThrough: true,
                 });
               }}
             />
           </View>
         </View>
-      </ModalProvider>
+      </OverlayProvider>
     </SafeAreaView>
   );
 };

@@ -13,62 +13,17 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  Button,
   Modal,
+  Button,
   View,
   Dimensions,
 } from 'react-native';
+import Overlay from './Overlay';
 
 const {width, height} = Dimensions.get('screen');
 
 import {ModalContext} from './modalContext';
-
-const ModalProvider = (props = {show: false, content: null}) => {
-  // console.log('ModalProvider props', props);
-  const [show, setShow] = useState(false);
-  const [content, setContent] = useState(props.content);
-  const [modalProps, setModalProps] = useState({...props});
-
-  useEffect(() => {
-    DeviceEventEmitter.addListener('modalOpen', _props => {
-      console.log('addListener modalOpen', _props);
-      setContent(_props.content);
-      setShow(_props.show);
-      setModalProps(_props);
-    });
-    DeviceEventEmitter.addListener('modalClose', _props => {
-      console.log('addListener modalClose', _props);
-      if (_props) {
-        setModalProps(_props);
-      }
-      setShow(false);
-      setContent(null);
-    });
-  }, []);
-
-  return (
-    <ModalContext.Provider value={{...props}}>
-      {props.children}
-      <BaseModal
-        opacity={0.35}
-        enableTouchThrough={true}
-        pressBehavior="close"
-        setShow={() => {
-          setShow(false);
-        }}
-        {...modalProps}
-        show={show}
-        // eslint-disable-next-line react-native/no-inline-styles
-        containerStyle={{
-          ...modalProps.containerStyle,
-        }}>
-        {content}
-      </BaseModal>
-    </ModalContext.Provider>
-  );
-};
-
-export {ModalContext, ModalProvider};
+export {ModalContext};
 
 const BaseModal = (
   props = {
@@ -97,6 +52,8 @@ const BaseModal = (
       statusBarTranslucent={true}
       animationType="fade"
       presentationStyle="overFullScreen"
+      // eslint-disable-next-line react-native/no-inline-styles
+      style={{margin: 0}}
       {...modalProps}
       visible={modalProps.show}
       onRequestClose={() => {
@@ -108,6 +65,7 @@ const BaseModal = (
       <View
         // eslint-disable-next-line react-native/no-inline-styles
         style={{
+          margin: 0,
           flex: 1,
           backgroundColor: `rgba(0,0,0,${modalProps.opacity})`,
           justifyContent: 'center',
@@ -195,11 +153,30 @@ const BaseModal = (
 };
 
 BaseModal.open = (content, props = {}) => {
-  DeviceEventEmitter.emit('modalOpen', {content, ...props, show: true});
-  console.log('modal open');
+  const renderChildren = () => {
+    return (
+      <>
+        <BaseModal
+          opacity={0.35}
+          enableTouchThrough={true}
+          pressBehavior="close"
+          setShow={() => {
+            Overlay.close();
+          }}
+          {...props}
+          show={true}
+          // eslint-disable-next-line react-native/no-inline-styles
+          containerStyle={{
+            ...props.containerStyle,
+          }}>
+          {content}
+        </BaseModal>
+      </>
+    );
+  };
+  Overlay.open(renderChildren, props);
 };
 BaseModal.close = () => {
-  DeviceEventEmitter.emit('modalClose', {show: false});
-  console.log('modal close');
+  Overlay.close();
 };
 export default BaseModal;
